@@ -7,13 +7,22 @@ using System.Threading.Tasks;
 
 namespace WorkFundamentals.Models
 {
+    /// <summary>
+    /// Represents a single Employee's Schedule for one week.
+    /// </summary>
     public class Schedule
     {
         [Key]
         public int Id { get; set; }
 
+        /// <summary>
+        /// The Employee the schedule belongs to
+        /// </summary>
         public Employee Employee { get; set; }
 
+        /// <summary>
+        /// Indicates whether the Schedule is for the current week or not.
+        /// </summary>
         public Boolean IsCurrent { get; set; }
 
         public DateTime StartingDate { get; set; }

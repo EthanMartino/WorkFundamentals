@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WorkFundamentals.Models
 {
+    /// <summary>
+    /// An authorized manager with Schedule and Task manipulation authorization
+    /// </summary>
     public class Manager
     {
         [Key]
