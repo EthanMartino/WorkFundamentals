@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,17 +12,20 @@ namespace WorkFundamentals.Models
     /// </summary>
     public class WorkTask
     {
-        public int Id { get; set; }
+        [Key]
+        public int WorkTaskId { get; set; }
+
+        /// <summary>
+        /// Foreign Key for Employee
+        /// </summary>
+        [Required]
+        public int EmployeeId { get; set; }
 
         public string Title { get; set; }
 
         public string Description { get; set; }
 
-        public Employee Employee { get; set; }
-
-        public Schedule Schedule { get; set; }
-
-        public WorkTaskCategory Category { get; set; }
+        public Boolean IsComplete { get; set; }
     }
 
     /// <summary>
@@ -28,6 +33,14 @@ namespace WorkFundamentals.Models
     /// </summary>
     public class WorkTaskCategory
     {
+        [Key]
+        public int WorkTaskCategoryId { get; set; }
+
+        /// <summary>
+        /// Foreign Key for WorkTask
+        /// </summary>
+        public int WorkTaskId { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }

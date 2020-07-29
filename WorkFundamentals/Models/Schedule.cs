@@ -13,12 +13,17 @@ namespace WorkFundamentals.Models
     public class Schedule
     {
         [Key]
-        public int Id { get; set; }
+        public int ScheduleId { get; set; }
 
         /// <summary>
-        /// The Employee the schedule belongs to
+        /// Foreign Key for Employee
         /// </summary>
-        public Employee Employee { get; set; }
+        public int EmployeeId { get; set; }
+
+        /// <summary>
+        /// Foreign Key for WorkTask
+        /// </summary>
+        public int? WorkTaskId { get; set; }
 
         /// <summary>
         /// Indicates whether the Schedule is for the current week or not.
