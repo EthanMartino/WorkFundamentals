@@ -9,7 +9,7 @@ namespace WorkFundamentals.Data.DbHelpers
 {
     public class ManagerDb
     {
-        public async Task<List<Manager>> GetAllEmployees(ApplicationDbContext context)
+        public async Task<List<Manager>> GetAllManagers(ApplicationDbContext context)
         {
             List<Manager> managers = await context.Managers
                 .OrderBy(m => m.Name)
@@ -18,7 +18,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return managers;
         }
 
-        public async Task<Manager> GetEmployeeById(int id, ApplicationDbContext context)
+        public async Task<Manager> GetManagerById(int id, ApplicationDbContext context)
         {
             Manager managers = await context.Managers
                 .Where(m => m.ManagerId == id)
