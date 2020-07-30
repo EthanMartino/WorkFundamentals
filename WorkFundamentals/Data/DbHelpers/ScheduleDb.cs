@@ -18,6 +18,25 @@ namespace WorkFundamentals.Data.DbHelpers
             return schedules;
         }
 
+        public async Task<Schedule> GetCurrentScheduleByEmployeeId(int id, ApplicationDbContext context)
+        {
+            Schedule schedule = await context.Schedules
+                .Where(s => s.EmployeeId == id)
+                .Where(s => s.IsCurrent)
+                .SingleOrDefaultAsync();
+
+            return schedule;
+        }
+
+        public async Task<Schedule> GetScheduleByWorkTaskId(int id, ApplicationDbContext context)
+        {
+            Schedule schedule = await context.Schedules
+                .Where(s => s.WorkTaskId == id)
+                .SingleOrDefaultAsync();
+
+            return schedule;
+        }
+
         public async Task<Schedule> GetScheduleById(int id, ApplicationDbContext context)
         {
             Schedule schedules = await context.Schedules

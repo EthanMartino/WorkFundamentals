@@ -17,6 +17,14 @@ namespace WorkFundamentals.Data.DbHelpers
 
             return workTasks;
         }
+        public async Task<List<WorkTask>> GetAllWorkTasksByEmployeeId(int id, ApplicationDbContext context)
+        {
+            List<WorkTask> workTasks = await context.WorkTasks
+                .Where(wt => wt.EmployeeId == id)
+                .ToListAsync();
+
+            return workTasks;
+        }
 
         public async Task<WorkTask> GetWorkTaskById(int id, ApplicationDbContext context)
         {
@@ -26,6 +34,16 @@ namespace WorkFundamentals.Data.DbHelpers
 
             return workTasks;
         }
+
+        public async Task<WorkTaskCategory> GetCategoryByWorkTaskId(int id, ApplicationDbContext context)
+        {
+            WorkTaskCategory category = await context.WorkTaskCategories
+                .Where(wtc => wtc.WorkTaskId == id)
+                .SingleOrDefaultAsync();
+
+            return category;
+        }
+
 
         public async void Add(WorkTask workTask, ApplicationDbContext context)
         {
