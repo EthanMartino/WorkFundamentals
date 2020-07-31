@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,7 +35,21 @@ namespace WorkFundamentals.Models
 
         public DateTime StartingDate { get; set; }
 
+        [NotMapped]
         public Dictionary<Day, DateTime> DailySchedule { get; set; }
+
+        public string DailyScheduleAsJSON
+        {
+            get
+            {
+                return JsonConvert.SerializeObject(DailySchedule, Formatting.Indented);
+            }
+            set 
+            {
+                JsonConvert.DeserializeObject<Dictionary<Day, DateTime>>(value);
+            }
+        }
+
 
         public Schedule()
         {
