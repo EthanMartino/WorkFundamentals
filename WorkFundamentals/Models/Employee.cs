@@ -12,16 +12,10 @@ namespace WorkFundamentals.Models
     public class Employee
     {
         [Key]
-        public int Id { get; set; }
+        public int EmployeeId { get; set; }
 
         public string Name { get; set; }
 
         public string JobTitle { get; set; }
-
-        public Schedule CurrentSchedule { get; set; }
-
-        public List<WorkTask> CurrentTasks { get; set; }
-
-        public List<WorkTask> CompletedTasks { get; set; }
     }
 }

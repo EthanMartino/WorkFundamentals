@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,12 +16,17 @@ namespace WorkFundamentals.Models
     public class Schedule
     {
         [Key]
-        public int Id { get; set; }
+        public int ScheduleId { get; set; }
 
         /// <summary>
-        /// The Employee the schedule belongs to
+        /// Foreign Key for Employee
         /// </summary>
-        public Employee Employee { get; set; }
+        public int EmployeeId { get; set; }
+
+        /// <summary>
+        /// Foreign Key for WorkTask
+        /// </summary>
+        public int? WorkTaskId { get; set; }
 
         /// <summary>
         /// Indicates whether the Schedule is for the current week or not.
@@ -27,7 +35,21 @@ namespace WorkFundamentals.Models
 
         public DateTime StartingDate { get; set; }
 
+        [NotMapped]
         public Dictionary<Day, DateTime> DailySchedule { get; set; }
+
+        public string DailyScheduleAsJSON
+        {
+            get
+            {
+                return JsonConvert.SerializeObject(DailySchedule, Formatting.Indented);
+            }
+            set 
+            {
+                JsonConvert.DeserializeObject<Dictionary<Day, DateTime>>(value);
+            }
+        }
+
 
         public Schedule()
         {

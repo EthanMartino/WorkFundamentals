@@ -12,7 +12,7 @@ namespace WorkFundamentals.Models
     public class Manager
     {
         [Key]
-        public int Id { get; set; }
+        public int ManagerId { get; set; }
 
         public string Name { get; set; }
 
