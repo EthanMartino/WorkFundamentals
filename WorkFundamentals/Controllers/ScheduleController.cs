@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WorkFundamentals.Data;
+using WorkFundamentals.Data.DbHelpers;
+using WorkFundamentals.Models;
 
 namespace WorkFundamentals.Controllers
 {
@@ -20,6 +22,13 @@ namespace WorkFundamentals.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public async Task<IActionResult> ViewAllSchedules()
+        {
+            List<Schedule> schedules = await ScheduleDb.GetAllSchedules(_context);
+
+            return View(schedules);
         }
     }
 }
