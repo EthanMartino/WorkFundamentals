@@ -7,9 +7,9 @@ using WorkFundamentals.Models;
 
 namespace WorkFundamentals.Data.DbHelpers
 {
-    public class ScheduleDb
+    public static class ScheduleDb
     {
-        public async Task<List<Schedule>> GetAllSchedules(ApplicationDbContext context)
+        public static async Task<List<Schedule>> GetAllSchedules(ApplicationDbContext context)
         {
             List<Schedule> schedules = await context.Schedules
                 .OrderByDescending(s => s.StartingDate)
@@ -18,7 +18,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return schedules;
         }
 
-        public async Task<Schedule> GetCurrentScheduleByEmployeeId(int id, ApplicationDbContext context)
+        public static async Task<Schedule> GetCurrentScheduleByEmployeeId(int id, ApplicationDbContext context)
         {
             Schedule schedule = await context.Schedules
                 .Where(s => s.EmployeeId == id)
@@ -28,7 +28,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return schedule;
         }
 
-        public async Task<Schedule> GetScheduleByWorkTaskId(int id, ApplicationDbContext context)
+        public static async Task<Schedule> GetScheduleByWorkTaskId(int id, ApplicationDbContext context)
         {
             Schedule schedule = await context.Schedules
                 .Where(s => s.WorkTaskId == id)
@@ -37,7 +37,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return schedule;
         }
 
-        public async Task<Schedule> GetScheduleById(int id, ApplicationDbContext context)
+        public static async Task<Schedule> GetScheduleById(int id, ApplicationDbContext context)
         {
             Schedule schedules = await context.Schedules
                 .Where(s => s.ScheduleId == id)
@@ -46,13 +46,13 @@ namespace WorkFundamentals.Data.DbHelpers
             return schedules;
         }
 
-        public async void Add(Schedule schedule, ApplicationDbContext context)
+        public static async void Add(Schedule schedule, ApplicationDbContext context)
         {
             await context.Schedules.AddAsync(schedule);
             await context.SaveChangesAsync();
         }
 
-        public async Task<Schedule> Update(Schedule schedule, ApplicationDbContext context)
+        public static async Task<Schedule> Update(Schedule schedule, ApplicationDbContext context)
         {
             context.Schedules.Attach(schedule);
             context.Entry(schedule).State = EntityState.Modified;
@@ -61,7 +61,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return schedule;
         }
 
-        public async void Delete(Schedule schedule, ApplicationDbContext context)
+        public static async void Delete(Schedule schedule, ApplicationDbContext context)
         {
             context.Schedules.Attach(schedule);
             context.Entry(schedule).State = EntityState.Deleted;
