@@ -7,9 +7,9 @@ using WorkFundamentals.Models;
 
 namespace WorkFundamentals.Data.DbHelpers
 {
-    public class ManagerDb
+    public static class ManagerDb
     {
-        public async Task<List<Manager>> GetAllManagers(ApplicationDbContext context)
+        public static async Task<List<Manager>> GetAllManagers(ApplicationDbContext context)
         {
             List<Manager> managers = await context.Managers
                 .OrderBy(m => m.Name)
@@ -18,7 +18,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return managers;
         }
 
-        public async Task<Manager> GetManagerById(int id, ApplicationDbContext context)
+        public static async Task<Manager> GetManagerById(int id, ApplicationDbContext context)
         {
             Manager managers = await context.Managers
                 .Where(m => m.ManagerId == id)
@@ -27,13 +27,13 @@ namespace WorkFundamentals.Data.DbHelpers
             return managers;
         }
 
-        public async void Add(Manager manager, ApplicationDbContext context)
+        public static async void Add(Manager manager, ApplicationDbContext context)
         {
             await context.Managers.AddAsync(manager);
             await context.SaveChangesAsync();
         }
 
-        public async Task<Manager> Update(Manager manager, ApplicationDbContext context)
+        public static async Task<Manager> Update(Manager manager, ApplicationDbContext context)
         {
             context.Managers.Attach(manager);
             context.Entry(manager).State = EntityState.Modified;
@@ -42,7 +42,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return manager;
         }
 
-        public async void Delete(Manager manager, ApplicationDbContext context)
+        public static async void Delete(Manager manager, ApplicationDbContext context)
         {
             context.Managers.Attach(manager);
             context.Entry(manager).State = EntityState.Deleted;

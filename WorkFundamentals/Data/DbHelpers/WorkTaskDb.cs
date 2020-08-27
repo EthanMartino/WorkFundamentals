@@ -7,9 +7,9 @@ using WorkFundamentals.Models;
 
 namespace WorkFundamentals.Data.DbHelpers
 {
-    public class WorkTaskDb
+    public static class WorkTaskDb
     {
-        public async Task<List<WorkTask>> GetAllWorkTasks(ApplicationDbContext context)
+        public static async Task<List<WorkTask>> GetAllWorkTasks(ApplicationDbContext context)
         {
             List<WorkTask> workTasks = await context.WorkTasks
                 .OrderBy(wt => wt.Title)
@@ -17,7 +17,7 @@ namespace WorkFundamentals.Data.DbHelpers
 
             return workTasks;
         }
-        public async Task<List<WorkTask>> GetAllWorkTasksByEmployeeId(int id, ApplicationDbContext context)
+        public static async Task<List<WorkTask>> GetAllWorkTasksByEmployeeId(int id, ApplicationDbContext context)
         {
             List<WorkTask> workTasks = await context.WorkTasks
                 .Where(wt => wt.EmployeeId == id)
@@ -26,7 +26,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return workTasks;
         }
 
-        public async Task<WorkTask> GetWorkTaskById(int id, ApplicationDbContext context)
+        public static async Task<WorkTask> GetWorkTaskById(int id, ApplicationDbContext context)
         {
             WorkTask workTasks = await context.WorkTasks
                 .Where(wt => wt.WorkTaskId == id)
@@ -35,7 +35,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return workTasks;
         }
 
-        public async Task<WorkTaskCategory> GetCategoryByWorkTaskId(int id, ApplicationDbContext context)
+        public static async Task<WorkTaskCategory> GetCategoryByWorkTaskId(int id, ApplicationDbContext context)
         {
             WorkTaskCategory category = await context.WorkTaskCategories
                 .Where(wtc => wtc.WorkTaskId == id)
@@ -45,13 +45,13 @@ namespace WorkFundamentals.Data.DbHelpers
         }
 
 
-        public async void Add(WorkTask workTask, ApplicationDbContext context)
+        public static async void Add(WorkTask workTask, ApplicationDbContext context)
         {
             await context.WorkTasks.AddAsync(workTask);
             await context.SaveChangesAsync();
         }
 
-        public async Task<WorkTask> Update(WorkTask workTask, ApplicationDbContext context)
+        public static async Task<WorkTask> Update(WorkTask workTask, ApplicationDbContext context)
         {
             context.WorkTasks.Attach(workTask);
             context.Entry(workTask).State = EntityState.Modified;
@@ -60,7 +60,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return workTask;
         }
 
-        public async void Delete(WorkTask workTask, ApplicationDbContext context)
+        public static async void Delete(WorkTask workTask, ApplicationDbContext context)
         {
             context.WorkTasks.Attach(workTask);
             context.Entry(workTask).State = EntityState.Deleted;

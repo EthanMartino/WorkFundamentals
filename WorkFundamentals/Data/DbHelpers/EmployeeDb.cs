@@ -7,9 +7,9 @@ using WorkFundamentals.Models;
 
 namespace WorkFundamentals.Data
 {
-    public class EmployeeDb
+    public static class EmployeeDb
     {
-        public async Task<List<Employee>> GetAllEmployees(ApplicationDbContext context)
+        public static async Task<List<Employee>> GetAllEmployees(ApplicationDbContext context)
         {
             List<Employee> employees =  await context.Employees
                 .OrderBy(e => e.Name)
@@ -18,7 +18,7 @@ namespace WorkFundamentals.Data
             return employees;
         }
 
-        public async Task<Employee> GetEmployeeById(int id, ApplicationDbContext context)
+        public static async Task<Employee> GetEmployeeById(int id, ApplicationDbContext context)
         {
             Employee employee = await context.Employees
                 .Where(e => e.EmployeeId == id)
@@ -27,13 +27,13 @@ namespace WorkFundamentals.Data
             return employee;
         }
 
-        public async void Add(Employee employee, ApplicationDbContext context)
+        public static async void Add(Employee employee, ApplicationDbContext context)
         {
             await context.Employees.AddAsync(employee);
             await context.SaveChangesAsync();
         }
 
-        public async Task<Employee> Update(Employee employee, ApplicationDbContext context)
+        public static async Task<Employee> Update(Employee employee, ApplicationDbContext context)
         {
             context.Employees.Attach(employee);
             context.Entry(employee).State = EntityState.Modified;
@@ -42,7 +42,7 @@ namespace WorkFundamentals.Data
             return employee;
         }
 
-        public async void Delete(Employee employee, ApplicationDbContext context)
+        public static async void Delete(Employee employee, ApplicationDbContext context)
         {
             context.Employees.Attach(employee);
             context.Entry(employee).State = EntityState.Deleted;
