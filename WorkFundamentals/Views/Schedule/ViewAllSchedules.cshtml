@@ -4,7 +4,7 @@
     ViewData["Title"] = "ViewAllSchedules";
 }
 
-<h1>ViewAllSchedules</h1>
+<h1>All Schedules</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,9 +12,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IsCurrent)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.StartingDate)
             </th>
@@ -27,10 +24,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsCurrent)
-            </td>
-            <td>
+             <td>
                 @Html.DisplayFor(modelItem => item.StartingDate)
             </td>
             <td>
