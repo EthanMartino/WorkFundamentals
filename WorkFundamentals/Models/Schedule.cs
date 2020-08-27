@@ -33,11 +33,13 @@ namespace WorkFundamentals.Models
         /// </summary>
         public Boolean IsCurrent { get; set; }
 
+        [Display(Name = "Starting Date")]
         public DateTime StartingDate { get; set; }
 
         [NotMapped]
         public Dictionary<Day, DateTime> DailySchedule { get; set; }
 
+        [Display(Name = "Daily Schedule")]
         public string DailyScheduleAsJSON
         {
             get
