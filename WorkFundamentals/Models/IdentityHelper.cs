@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,9 @@ namespace WorkFundamentals.Models
 {
     public class IdentityHelper
     {
+        public const string Employer = "Employer";
+        public const string Employee = "Employee";
+
         public static void SetIdentityOptions(IdentityOptions options)
         {
             options.SignIn.RequireConfirmedEmail = true;
@@ -20,6 +24,20 @@ namespace WorkFundamentals.Models
 
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
             options.Lockout.MaxFailedAccessAttempts = 5;
+        }
+
+        public static async Task CreateRoles(IServiceProvider provider, params string[] roles)
+        {
+            RoleManager<IdentityRole> roleManager = provider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            foreach (string role in roles)
+            {
+                bool doesExist = await roleManager.RoleExistsAsync(role);
+                if (!doesExist)
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ using WorkFundamentals.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WorkFundamentals.Models;
 
 namespace WorkFundamentals
 {
@@ -30,7 +31,8 @@ namespace WorkFundamentals
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(IdentityHelper.SetIdentityOptions)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -65,6 +67,12 @@ namespace WorkFundamentals
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            IServiceScope serviceProvider = app.ApplicationServices
+                .GetRequiredService<IServiceProvider>()
+                .CreateScope();
+            IdentityHelper.CreateRoles(serviceProvider.ServiceProvider, IdentityHelper.Employer, IdentityHelper.Employee)
+                .Wait();
         }
     }
 }
