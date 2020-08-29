@@ -65,5 +65,18 @@ namespace WorkFundamentals.Controllers
 
             return RedirectToAction("ViewAllSchedules");
         }
+
+        [HttpGet]
+        public IActionResult AssignTask()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignTask(WorkTask task)
+        {
+            await WorkTaskDb.Add(task, _context);
+            return RedirectToAction("ViewAllSchedules");
+        }
     }
 }
