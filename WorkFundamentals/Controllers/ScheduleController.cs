@@ -30,5 +30,25 @@ namespace WorkFundamentals.Controllers
 
             return View(schedules);
         }
+
+        [HttpGet]
+        public IActionResult CreateSchedule()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateSchedule(int id)
+        {
+            if (ScheduleDb.GetCurrentScheduleByEmployeeId(ViewBag.EmployeeId, _context) == null)
+            {
+                return RedirectToAction("ViewAllSchedules");
+            }
+
+            Schedule currSchedule = await ScheduleDb.GetScheduleById(id, _context);
+            ScheduleDb.Add(currSchedule, _context);
+
+            return RedirectToAction("ViewAllSchedules");
+        }
     }
 }
