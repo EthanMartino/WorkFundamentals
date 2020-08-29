@@ -19,6 +19,7 @@ namespace WorkFundamentals.Data
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<WorkTask> WorkTasks { get; set; }
         public DbSet<WorkTaskCategory> WorkTaskCategories { get; set; }
+        public DbSet<SendSms> SendSms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
