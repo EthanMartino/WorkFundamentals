@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,8 +24,18 @@ namespace WorkFundamentals.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId != null && userId != String.Empty)
+            {
+                IdentityUser currUser = await _userManager.FindByIdAsync(userId);
+                await _userManager.AddToRoleAsync(currUser, IdentityHelper.Employer);
+                if (await _userManager.IsInRoleAsync(currUser, IdentityHelper.Employer))
+                {
+                    ViewBag.IsEmployer = true;
+                }
+            }
             return View();
         }
 
