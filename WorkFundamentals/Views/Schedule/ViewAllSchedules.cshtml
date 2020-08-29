@@ -6,9 +6,12 @@
 
 <h1>All Schedules</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (ViewBag.IsEmployer == true)
+{
+    <p>
+        <a asp-action="CreateSchedule">Create New</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
