@@ -45,7 +45,7 @@ namespace WorkFundamentals.Data.DbHelpers
         }
 
 
-        public static async void Add(WorkTask workTask, ApplicationDbContext context)
+        public static async Task Add(WorkTask workTask, ApplicationDbContext context)
         {
             await context.WorkTasks.AddAsync(workTask);
             await context.SaveChangesAsync();
@@ -60,7 +60,7 @@ namespace WorkFundamentals.Data.DbHelpers
             return workTask;
         }
 
-        public static async void Delete(WorkTask workTask, ApplicationDbContext context)
+        public static async Task Delete(WorkTask workTask, ApplicationDbContext context)
         {
             context.WorkTasks.Attach(workTask);
             context.Entry(workTask).State = EntityState.Deleted;
